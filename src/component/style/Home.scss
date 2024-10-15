@@ -1,0 +1,166 @@
+#home-page{
+    padding:10vh 50px;
+    padding-bottom: 0px;
+    h1{
+        overflow: hidden;
+        border-right: .15em solid;
+        white-space: nowrap;
+        letter-spacing: .1em;
+        font-size: 5.5rem;
+        font-weight: 600;
+        color:rgb(215, 61, 61);
+        filter: drop-shadow(0 0 4px rgba(215, 61, 61, 0.5));
+    }
+
+    #f-name{
+        width: 0;
+        animation: 
+        typing-f 0.5s steps(5, end) forwards,
+        blink-caret .75s step-end infinite;
+    }
+    #l-name{
+        width: 0;
+        padding-left:10vw;
+        animation: 
+        typing-l 0.5s steps(5, end) 0.5s forwards,
+        blink-caret .75s step-end infinite;
+    }
+}
+
+#job-header-con{
+    background-color: rgba(70, 7, 7, 0.721);
+    width:650px;
+    height: 70px;
+    border-radius: 50px;
+    margin-left: -20px;
+    animation: ShowUpHeader 0.6s linear 1.2s 1 normal both;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        li{
+            padding: 0 3px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: rgb(250, 196, 196);
+            filter: drop-shadow(0 0 4px rgba(215, 61, 61, 0.5));
+        }
+    }
+
+}
+
+#right-side {
+    position: absolute;
+    top: 50%; 
+    right: 0;
+    margin-right: 50px;
+    transform: translateY(-50%);
+    width: 900px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, rgba(20, 20, 20, 0.9) 40%, rgba(0, 0, 0, 1) 100%);
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255, 50, 50, 0.5);
+    border: 5px solid rgba(250, 196, 196, 0.4);
+    animation: TVShowUp 0.6s linear 0.8s 1 normal both,
+                flicker 1.5s infinite alternate;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.03),
+            rgba(255, 255, 255, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 4px
+        );
+        z-index: 2;
+        opacity: 0.5;
+        pointer-events: none;
+        animation: scanlines 0.2s infinite linear;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 10%, rgba(0, 0, 0, 0.6) 100%);
+        mix-blend-mode: overlay;
+        opacity: 0.4;
+        z-index: 3;
+        pointer-events: none;
+    }
+}
+
+@keyframes ShowUpHeader {
+    0% {
+        opacity: 0;
+        background-color: white;
+    }
+    40% {
+        opacity: 0.5;
+        background-color: rgba(70, 7, 7, 0.721);
+    }
+    100% {
+        opacity: 1;
+    }
+    
+}
+
+
+@keyframes TVShowUp {
+    0% {
+        opacity: 0;
+        margin-right: -100px;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes flicker {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.2);
+    }
+}
+
+@keyframes scanlines {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+
+@keyframes typing-f {
+    from { width: 0 }
+    to { width: 5.5ch }
+}
+
+@keyframes typing-l {
+    from { width: 0 }
+    to { width: 5.5ch }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: rgb(172, 41, 24); }
+}
