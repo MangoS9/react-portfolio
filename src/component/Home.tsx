@@ -14,7 +14,7 @@ function Home(){
                 </div>
                 <div id ="skills-container">
                 </div>
-                <div id ="right-side"/>
+                {/* <div id ="right-side"/> */}
             </div>
 
 
