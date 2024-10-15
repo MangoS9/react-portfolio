@@ -12,8 +12,7 @@ function Home(){
                         <li>Web Developer</li>
                     </ul>
                 </div>
-                <div id ="skills-container">
-                </div>
+                {/* <div id ="skills-container"/> */}
                 {/* <div id ="right-side"/> */}
             </div>
 
