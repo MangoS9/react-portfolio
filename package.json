@@ -1,5 +1,5 @@
 {
-  "hompage": "https://MangoS9.github.io/react-portfolio",
+  "hompage": "https://mangos9.github.io/react-portfolio",
   "name": "portfolio",
   "private": true,
   "version": "0.0.0",
@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "react": "^18.3.1",
