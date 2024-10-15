@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './style//Navigation.scss'
 
 function Navigation(){
