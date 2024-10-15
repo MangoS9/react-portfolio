@@ -1,21 +1,46 @@
-$ani-delay: 5s;
+$ani-delay: 1.5s;
 
-#logo-container{
+#logo-container {
     position: absolute;
-    top: 50%; 
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+    
+    &.paused {
+        #logo-wrapper, 
+        #logo h1, 
+        #loading-count {
+        animation-play-state: paused; // Initially paused
+        }
+        
+    }
+
+    &.start-animation {
+        #logo-wrapper, 
+        #logo h1, 
+        #logo-wrapper::after, 
+        #logo-wrapper::before, 
+        #loading-count {
+        animation-play-state: running; // Initially paused
+        }
+    }
 }
+
 #logo-wrapper {
     width: 15rem;
     height: 15rem;
     border-radius: 50%;
-    background-color: green;
+    background-color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    animation: fadeOut-bg 0.7s ease-in-out $ani-delay 1 normal both;
+    animation: fadeOut-bg 0.7s ease-in-out $ani-delay 1 normal both paused; // Start paused
 
     &::after,
     &::before {
@@ -27,7 +52,8 @@ $ani-delay: 5s;
         height: 100%;
         width: 100%;
         background-image: conic-gradient(from 180deg, transparent 75%, rgb(218, 137, 137));
-        animation: 4.5s spin linear forwards;
+        animation: spin 2.5s linear forwards infinite,
+                    spinFadeOut 1s linear forwards 0.5s paused;
     }
 
     &::before {
@@ -42,25 +68,35 @@ $ani-delay: 5s;
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: glitch-it 0.3s cubic-bezier(.59, .24, .42, 1.08) both infinite;
+    animation: glitch-it 0.3s cubic-bezier(.59, .24, .42, 1.08) both infinite paused; // Start paused
     --shake-intensity: 2px;
 
     h1 {
-        margin-top: 15rem;
+        margin-top: 6rem;
         text-align: center;
         font-size: 9.5rem;
         color: rgb(215, 61, 61);
         filter: drop-shadow(0 0 6px rgb(215, 61, 61, 0.7));
-        animation: popOut 0.7s cubic-bezier(.8,.02,.15,1.4) 0s 1 forwards, 
-        ShrinkIn 1s ease-in-out $ani-delay 1 forwards;
+        animation: ShrinkIn 1s ease-in-out $ani-delay 1 forwards paused; // Start paused
 
         &.stopped {
-            color: green; /* Turn green when stopped */
+            color: green;
             filter: drop-shadow(0 0 5px rgba(81, 235, 94, 0.6));
         }
     }
 }
 
+
+@keyframes ShrinkIn {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
 
 @keyframes glitch-it {
     0% {
@@ -83,34 +119,18 @@ $ani-delay: 5s;
     }
 }
 
-
 #loading-count {
-    margin-top: 5rem;
+    position:fixed;
+    top: 16rem;
     font-size: 2rem;
     color: rgb(180, 171, 171);
+    text-align: center;
     filter: drop-shadow(0 0 4px rgba(232, 222, 222, 0.5));
     z-index: 1;
-    animation: fadeOut 0.8s ease-in-out 0s 1 normal both;
-    animation-delay: $ani-delay;
-}
-
-@keyframes ShrinkIn {
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-}
-
-@keyframes fadeOut-bg {
-    0%{
-        background-color: rgba(0, 0, 0, 1);
-    }
-    100% {
-        background-color: rgba(0, 0, 0, 0);
+    animation: fadeOut 0.8s ease-in-out $ani-delay 1 normal both paused;
+    &.access-granted {
+        color: green;
+        filter: drop-shadow(0 0 5px rgba(81, 235, 94, 0.6));
     }
 }
 
@@ -123,28 +143,29 @@ $ani-delay: 5s;
     }
 }
 
-@keyframes popOut {
+@keyframes fadeOut-bg {
     0% {
-        transform: scale(0);
+        background-color: rgba(0, 0, 0, 1);
     }
     100% {
-        transform: scale(1);
+        background-color: rgba(0, 0, 0, 0);
     }
 }
 
 @keyframes spin {
     0% {
-        opacity: 0;
         transform: rotate(0deg);
     }
-    10% {
-        opacity: 1;
+    100% {
+        transform: rotate(360deg);
     }
-    90% {
+}
+
+@keyframes spinFadeOut {
+    0% {
         opacity: 1;
     }
     100% {
         opacity: 0;
-        transform: rotate(360deg);
     }
 }

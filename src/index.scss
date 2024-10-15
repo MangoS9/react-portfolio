@@ -11,12 +11,13 @@ html {
 
 body {
     height: 100%;
-    width: 100%;
+    width: 100vw;
     margin: 0;
     padding: 0;
     font-family: "Touchscreen";
     position: relative;
     overflow: hidden;
+
     &::before {
         content: "";
         position: absolute;
@@ -31,9 +32,12 @@ body {
             rgba(40, 2, 2, 1) 100%
         );
         opacity: 0;
-        animation: gradientFade 4s forwards;
-        animation-delay: 5s;
+        animation: gradientFade 4s 0.5s forwards paused;
         z-index: -1;
+    }
+
+    &.play-gradient::before {
+        animation-play-state: running;
     }
 }
 

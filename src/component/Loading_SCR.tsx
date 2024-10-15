@@ -3,63 +3,61 @@ import './style/Loading_SCR.scss';
 
 interface LoadingSCRProps {
     duration?: number;
+    onStart: () => void;
+    onProgress: (progress: number) => void;
+    loadingStarted: boolean;
 }
 
-function Loading_SCR({ duration = 4500 }: LoadingSCRProps) {
+function Loading_SCR({ duration = 1000, onStart, onProgress, loadingStarted }: LoadingSCRProps) {
     const [count, setCount] = useState<number>(0);
-    const [shakeIntensity, setShakeIntensity] = useState<number>(2);
-    const [isShaking, setIsShaking] = useState<boolean>(true); // Track if shaking
+    const [isActive, setIsActive] = useState<boolean>(false); // Control animation start
     const startTime = useRef<number | null>(null);
-    const logoRef = useRef<HTMLDivElement>(null);
-    const h1Ref = useRef<HTMLHeadingElement>(null); // Ref for h1
+    const logoContainerRef = useRef<HTMLDivElement>(null);
+
+    const handleClick = () => {
+        if (!loadingStarted) {
+            onStart(); // Notify App that loading started
+            setIsActive(true); // Enable animations
+            logoContainerRef.current?.classList.add('start-animation'); // Start animation
+        }
+    };
 
     useEffect(() => {
-        const updateCounter = (timestamp: number) => {
-            if (startTime.current === null) startTime.current = timestamp;
+        if (isActive && loadingStarted) { // Only start counter when active
+            const updateCounter = (timestamp: number) => {
+                if (startTime.current === null) startTime.current = timestamp;
 
-            const elapsed = timestamp - startTime.current;
-            const percentage = Math.min((elapsed / duration) * 100, 100);
-            setCount(Math.floor(percentage));
+                const elapsed = timestamp - startTime.current;
+                const percentage = Math.min((elapsed / duration) * 100, 100);
+                setCount(Math.floor(percentage));
+                onProgress(Math.floor(percentage));
 
-            if (elapsed >= duration) {
-                setIsShaking(false); // Stop shaking when duration completes
-            } else {
-                requestAnimationFrame(updateCounter);
-            }
-        };
+                if (elapsed >= duration) {
+                    logoContainerRef.current?.classList.add('completed'); // Optional: Add completed class
+                } else {
+                    requestAnimationFrame(updateCounter);
+                }
+            };
 
-        const animationFrameId = requestAnimationFrame(updateCounter);
-        return () => cancelAnimationFrame(animationFrameId);
-    }, [duration]);
-
-    useEffect(() => {
-        if (isShaking) {
-            const intervalId = setInterval(() => {
-                setShakeIntensity((prev) => Math.min(prev + 1, 20));
-            }, 1000);
-            return () => clearInterval(intervalId);
-        } else {
-            setShakeIntensity(0); // Reset intensity to stop shaking
+            const animationFrameId = requestAnimationFrame(updateCounter);
+            return () => cancelAnimationFrame(animationFrameId);
         }
-    }, [isShaking]);
-
-    useEffect(() => {
-        if (logoRef.current) {
-            logoRef.current.style.setProperty('--shake-intensity', `${shakeIntensity}px`);
-        }
-
-        if (!isShaking && h1Ref.current) {
-            h1Ref.current.classList.add('stopped'); // Add the 'stopped' class to h1
-        }
-    }, [shakeIntensity, isShaking]);
+    }, [isActive, loadingStarted, duration, onProgress]);
 
     return (
-        <div id="logo-container">
+        <div
+            id="logo-container"
+            ref={logoContainerRef}
+            className={`paused`} // Initially paused
+            onClick={handleClick}
+        >
             <div id="logo-wrapper">
-                <div id="logo" data-text="峁" ref={logoRef}>
-                    <h1 ref={h1Ref}>峁</h1>
+                <div id="logo" data-text="峁">
+                    <h1 className={count === 100 ? 'stopped' : ''}>峁</h1>
                 </div>
-                <div id="loading-count">{count}%</div>
+                <div id="loading-count" className={count === 100 ? 'access-granted' : ''}>
+                    {loadingStarted ? (count === 100 ? 'Access Granted' : `${count}%`) : 'Press me'}
+                </div>
             </div>
         </div>
     );
