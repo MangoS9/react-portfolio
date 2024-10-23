@@ -9,26 +9,25 @@ $ani-delay: 1.5s;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    
-    
+    user-select: none;
+
     &.paused {
-        #logo-wrapper, 
+        #logo-wrapper,
         #logo h1,
         #logo,
         #loading-count {
-        animation-play-state: paused; // Initially paused
+            animation-play-state: paused; // Initially paused
         }
-        
     }
 
     &.start-animation {
-        #logo-wrapper, 
+        #logo-wrapper,
         #logo h1,
         #logo,
-        #logo-wrapper::after, 
-        #logo-wrapper::before, 
+        #logo-wrapper::after,
+        #logo-wrapper::before,
         #loading-count {
-        animation-play-state: running; // Initially paused
+            animation-play-state: running; // Initially paused
         }
     }
 }
@@ -53,14 +52,45 @@ $ani-delay: 1.5s;
         z-index: -1;
         height: 100%;
         width: 100%;
-        background-image: conic-gradient(from 180deg, transparent 75%, rgb(218, 137, 137));
+        background-image: conic-gradient(
+            from 180deg,
+            transparent 75%,
+            rgb(218, 137, 137)
+        );
         animation: spin 2.5s linear forwards infinite,
-                    spinFadeOut 1s linear forwards 0.5s paused;
+            spinFadeOut 1s linear forwards 0.5s paused;
     }
 
     &::before {
         filter: blur(2rem);
         opacity: 0.75;
+    }
+
+    @keyframes fadeOut-bg {
+        0% {
+            background-color: rgba(0, 0, 0, 1);
+        }
+        100% {
+            background-color: rgba(0, 0, 0, 0);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spinFadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
     }
 }
 
@@ -70,6 +100,7 @@ $ani-delay: 1.5s;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     h1 {
         margin-top: 6rem;
@@ -84,22 +115,21 @@ $ani-delay: 1.5s;
             filter: drop-shadow(0 0 5px rgba(81, 235, 94, 0.6));
         }
     }
-}
 
-
-@keyframes ShrinkIn {
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-20px);
+    @keyframes ShrinkIn {
+        0% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
     }
 }
 
 #loading-count {
-    position:fixed;
+    position: fixed;
     top: 16rem;
     font-size: 2rem;
     color: rgb(180, 171, 171);
@@ -107,44 +137,18 @@ $ani-delay: 1.5s;
     filter: drop-shadow(0 0 4px rgba(232, 222, 222, 0.5));
     z-index: 1;
     animation: fadeOut 0.8s ease-in-out $ani-delay 1 normal both paused;
+
     &.access-granted {
         color: green;
         filter: drop-shadow(0 0 5px rgba(81, 235, 94, 0.6));
     }
-}
 
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-@keyframes fadeOut-bg {
-    0% {
-        background-color: rgba(0, 0, 0, 1);
-    }
-    100% {
-        background-color: rgba(0, 0, 0, 0);
-    }
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes spinFadeOut {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
     }
 }

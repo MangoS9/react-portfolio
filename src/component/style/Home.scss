@@ -1,36 +1,28 @@
-#home-page{
-    padding:10vh 50px;
+#home-page {
+    padding: 10vh 3rem;
     padding-bottom: 0px;
-    h1{
+
+    .name {
         overflow: hidden;
-        border-right: .15em solid;
+        border-right: 0.15em solid;
         white-space: nowrap;
-        letter-spacing: .1em;
+        letter-spacing: 0.1em;
         font-size: 5.5rem;
         font-weight: 600;
-        color:rgb(215, 61, 61);
+        color: rgb(215, 61, 61);
         filter: drop-shadow(0 0 4px rgba(215, 61, 61, 0.5));
-    }
-
-    #f-name{
-        width: 0;
-        animation: 
-        typing-f 0.5s steps(5, end) forwards,
-        blink-caret .75s step-end infinite;
-    }
-    #l-name{
-        width: 0;
-        padding-left:10vw;
-        animation: 
-        typing-l 0.5s steps(5, end) 0.5s forwards,
-        blink-caret .75s step-end infinite;
+        animation: typing-f 0.5s steps(5, end) forwards,
+            blink-caret 0.75s step-end infinite;
+        &#l-name {
+            padding-left: 9.5rem;
+        }
     }
 }
 
-#job-header-con{
+#job-header-con {
     background-color: rgba(70, 7, 7, 0.721);
     width: 650px;
-    height: 8vh;
+    height: 3.5rem;
     border-radius: 50px;
     margin-left: -20px;
     animation: ShowUpHeader 0.6s linear 1.2s 1 normal both;
@@ -43,7 +35,7 @@
         justify-content: center;
         align-items: center;
         height: 100%;
-        li{
+        li {
             padding: 0 3px;
             font-size: 1.5rem;
             font-weight: 600;
@@ -53,68 +45,27 @@
     }
 }
 
-@media (max-width: 700px) {
-    #home-page{
-        padding:10vh 50px;
-        padding-bottom: 0px;
-        h1{
-            overflow: hidden;
-            border-right: .15em solid;
-            white-space: nowrap;
-            letter-spacing: .1em;
-            font-size: 16vw;
-            font-weight: 600;
-            color:rgb(215, 61, 61);
-            filter: drop-shadow(0 0 4px rgba(215, 61, 61, 0.5));
-        }
-    }
-
-    #job-header-con{
-        background-color: rgba(70, 7, 7, 0.721);
-        width: 90vw;
-        height: 8vh;
-        border-radius: 50px;
-        margin-left: -20px;
-        animation: ShowUpHeader 0.6s linear 1.2s 1 normal both;
-    
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            li{
-                padding: 0 3px;
-                font-size: 3.5vw;
-                font-weight: 600;
-                color: rgb(250, 196, 196);
-                filter: drop-shadow(0 0 4px rgba(215, 61, 61, 0.5));
-            }
-        }
-    }
-
-}
-
-#right-side {
+#demo-video {
     position: absolute;
-    top: 50%; 
-    right: 0;
-    margin-right: 50px;
-    transform: translateY(-50%);
-    width: 900px;
-    height: 700px;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, rgba(20, 20, 20, 0.9) 40%, rgba(0, 0, 0, 1) 100%);
-    border-radius: 40px;
+    top: 9.5rem;
+    right: 2.5rem;
+    width: 640px;
+    height: 480px;
     overflow: hidden;
+    border-radius: 40px;
+    background: radial-gradient(
+        circle,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(20, 20, 20, 0.9) 40%,
+        rgba(0, 0, 0, 1) 100%
+    );
     box-shadow: 0 0 20px rgba(255, 50, 50, 0.5);
     border: 5px solid rgba(250, 196, 196, 0.4);
     animation: TVShowUp 0.6s linear 0.8s 1 normal both,
-                flicker 1.5s infinite alternate;
+        flicker 1.5s infinite alternate;
 
     &::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -134,17 +85,59 @@
     }
 
     &::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 10%, rgba(0, 0, 0, 0.6) 100%);
+        background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.15) 10%,
+            rgba(0, 0, 0, 0.6) 100%
+        );
         mix-blend-mode: overlay;
         opacity: 0.4;
         z-index: 3;
         pointer-events: none;
+    }
+}
+
+@media (max-width: 1400px) {
+    #home-page {
+        padding-left: 8.5vw;
+        padding-right: 0;
+        .name {
+            font-size: 16vw;
+            &#l-name {
+                padding-left: 16vw;
+            }
+        }
+    }
+
+    #job-header-con {
+        background-color: rgba(70, 7, 7, 0.721);
+        width: 90vw;
+        border-radius: 50px;
+        margin-left: -3.5vw;
+        animation: ShowUpHeader 0.6s linear 1.2s 1 normal both;
+
+        ul {
+            li {
+                font-size: 3.5vw;
+            }
+        }
+    }
+
+    #demo-video {
+        position: static;
+        top: 0;
+        right: 0;
+        margin: 2.5vw;
+        margin-bottom: 0;
+        // padding-left: 10vw;
+        width: 76vw;
+        height: 55.5vw;
     }
 }
 
@@ -160,9 +153,7 @@
     100% {
         opacity: 1;
     }
-    
 }
-
 
 @keyframes TVShowUp {
     0% {
@@ -175,7 +166,8 @@
 }
 
 @keyframes flicker {
-    0%, 100% {
+    0%,
+    100% {
         filter: brightness(1);
     }
     50% {
@@ -192,18 +184,30 @@
     }
 }
 
-
 @keyframes typing-f {
-    from { width: 0 }
-    to { width: 5.5ch }
+    from {
+        width: 0;
+    }
+    to {
+        width: 5.5ch;
+    }
 }
 
 @keyframes typing-l {
-    from { width: 0 }
-    to { width: 5.5ch }
+    from {
+        width: 0;
+    }
+    to {
+        width: 5.5ch;
+    }
 }
 
 @keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: rgb(172, 41, 24); }
+    from,
+    to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: rgb(172, 41, 24);
+    }
 }

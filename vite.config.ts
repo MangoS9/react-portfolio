@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: '/react-portfolio/',
   css: {
+    postcss: './postcss.config.js',
     preprocessorOptions: {
       scss: {
         api: 'modern-compiler' // or "modern"

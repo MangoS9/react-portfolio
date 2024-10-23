@@ -48,7 +48,7 @@ function Loading_SCR({ duration = 1000, onStart, onProgress, loadingStarted }: L
         <div
             id="logo-container"
             ref={logoContainerRef}
-            className={`paused`} // Initially paused
+            className={`paused`}
             onClick={handleClick}
         >
             <div id="logo-wrapper">
